@@ -4,7 +4,6 @@ const Engineer = require(`./lib/Engineer`);
 const generate = require(`./util/generateHtml`);
 const inquirer = require("inquirer");
 const fs = require(`fs`);
-const Employee = require("./lib/Employee");
 
 const employeeList = [];
 
@@ -23,33 +22,30 @@ function askQuestion() {
     }]).then(answers => {
         switch (answers.question) {
             case "Team Manager":
-                console.log("Add Manager!")
+                // console.log("Add Manager!")
                 addManager();
                 break;
 
             case "Team Engineer":
-                console.log("Add Engineer!")
+                // console.log("Add Engineer!")
                 addEngineer();
                 break;
 
             case "Team Intern":
-                console.log("Add Intern!")
+                // console.log("Add Intern!")
                 addIntern();
                 break;
 
             case "Finished":
-                fs.writeFile(`employees.html`, generate, err => console.log(err))
-                console.log(`Your Teams Profile has been created Thanks!`);
-                break;
-            default:
-
+                fs.writeFile(`employees.html`, employeeList, err => console.log(err))
+                    // console.log(`Your Teams Profile has been created Thanks!`);
                 break;
         }
     })
 }
 
 function addManager() {
-    inquirer.prompt({
+    inquirer.prompt([{
         type: "input",
         message: "Team Manager's name?",
         name: "name"
@@ -65,14 +61,66 @@ function addManager() {
         type: "input",
         message: "Office number?",
         name: "officeNumber"
-    }).then(({ name, id, email, officeNumber }) => {
-        console.log(name, id, email, officeNumber);
-        const manager = new Employee(name, id, email, officeNumber);
-        employeeList.push(manager)
+    }]).then(answer => {
+        const employee = new Manager(answer.name, answer.id, answer.email, answer.officeNumber);
+        employeeList.push(employee)
         console.log(employeeList);
         askQuestion();
     })
 }
 
+function addEngineer() {
+    inquirer.prompt([{
+        type: "input",
+        message: "Engineer's Name?",
+        name: "name"
+    }, {
+        type: "number",
+        message: "Employee ID #?",
+        name: "id"
+    }, {
+        type: "input",
+        message: "Email address?",
+        name: "email"
+    }, {
+        type: "input",
+        message: "Github Username?",
+        name: "github"
+    }]).then(answer => {
+        // console.log(answer.name, answer.id, answer.email, answer.github);
+        const employee = new Engineer(answer.name, answer.id, answer.email, answer.github);
+        employeeList.push(employee)
+        console.log(employeeList);
+        askQuestion();
+    })
+}
+
+function addIntern() {
+    inquirer.prompt([{
+        type: "input",
+        message: "Intern's Name?",
+        name: "name"
+    }, {
+        type: "number",
+        message: "Employee ID #?",
+        name: "id"
+    }, {
+        type: "input",
+        message: "Email address?",
+        name: "email"
+    }, {
+        type: "input",
+        message: "Interns School?",
+        name: "school"
+    }]).then(answer => {
+        // console.log(answer.name, answer.id, answer.email, answer.school);
+        const employee = new Intern(answer.name, answer.id, answer.email, answer.school);
+        employeeList.push(employee)
+        console.log(employeeList);
+        askQuestion();
+    })
+}
+
+askQuestion();
 // WHEN I decide to finish building my team THEN I exit the application, and the HTML is generated
 // TODO: THEN an HTML file is generated that displays a nicely formatted team roster based on user input
