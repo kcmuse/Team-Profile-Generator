@@ -4,6 +4,9 @@ const Engineer = require(`./lib/Engineer`);
 const generate = require(`./util/generateHtml`);
 const inquirer = require("inquirer");
 const fs = require(`fs`);
+const Employee = require("./lib/Employee");
+
+const employeeList = [];
 
 // TODO: WHEN I am prompted for my team members and their information
 //WHEN I start the application Questions
@@ -46,7 +49,29 @@ function askQuestion() {
 }
 
 function addManager() {
-
+    inquirer.prompt({
+        type: "input",
+        message: "Team Manager's name?",
+        name: "name"
+    }, {
+        type: "number",
+        message: "Employee ID #?",
+        name: "id"
+    }, {
+        type: "input",
+        message: "Email address?",
+        name: "email"
+    }, {
+        type: "input",
+        message: "Office number?",
+        name: "officeNumber"
+    }).then(({ name, id, email, officeNumber }) => {
+        console.log(name, id, email, officeNumber);
+        const manager = new Employee(name, id, email, officeNumber);
+        employeeList.push(manager)
+        console.log(employeeList);
+        askQuestion();
+    })
 }
 
 // WHEN I decide to finish building my team THEN I exit the application, and the HTML is generated
