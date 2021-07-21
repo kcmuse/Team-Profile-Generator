@@ -8,7 +8,6 @@ This projec is designed create profiles for team members. Users are first asked 
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Contribution](#contribution)
 * [Testing](#testing)
 * [Questions](#questions)
 
@@ -22,13 +21,15 @@ will install all i needed files
 ```
 
 ## Usage
-![Preview]()
+### In terminal preview
+![Preview](./images/in-terminal.png)
+### Result preview
+![Preview](./images/result.png)
+### How to start within terminal
+```
 npm start
- will begin the prompt and you can start creating the file
-
-## Contribution
-
-All contributions can be made to my github
+will begin the prompt and you can start creating the file
+ ```
 
 ## Testing
 
